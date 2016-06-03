@@ -78,7 +78,10 @@ module.exports = function getPlugin(S) {
           const handlerEntryPath = `./${handlerFileName}`;
 
           // override entry and output
-          webpackConfig.context = path.dirname(func.getFilePath());
+          webpackConfig.context = (webpackConfig.context === undefined) ?
+              path.dirname(func.getFilePath()) :
+              webpackConfig.context;
+          
           if (Array.isArray(webpackConfig.entry)) {
             webpackConfig.entry.push(handlerEntryPath);
           } else {
